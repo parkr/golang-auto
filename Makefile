@@ -8,6 +8,17 @@ build:
 	docker build -t $(IMAGE) .
 
 test:
+	docker run $(IMAGE) || true
+	docker run \
+		-e GOLANG_PACKAGE_SHA1=c48843c944584f7fa4ec47d8a59d1b928316c520 \
+		$(IMAGE) || true
+	docker run \
+		-e GOLANG_PACKAGE=github.com/parkr/antispam \
+		$(IMAGE) || true
+	docker run \
+		-e GOLANG_PACKAGE=github.com/parkr/antispam \
+		-e GOLANG_PACKAGE_SHA1=c48843c944584f7fa4ec47d8a59d1b928316c520 \
+		$(IMAGE) || true
 	docker run \
 		-e GOLANG_PACKAGE=github.com/parkr/ping \
 		-e GOLANG_PACKAGE_SHA1=00d3c8d6bb926e5a890185e65c564ca57432de4d \
